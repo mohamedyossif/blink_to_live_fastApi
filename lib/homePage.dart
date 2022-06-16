@@ -10,7 +10,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class HomePage extends StatefulWidget {
   WebSocketChannel channel = IOWebSocketChannel.connect(
-    "ws://ec2-3-15-234-93.us-east-2.compute.amazonaws.com:8080/blink-to-live",
+    "ws://localhost:8000/blink-to-live",
   );
   @override
   _HomePageState createState() => _HomePageState();
@@ -56,17 +56,19 @@ class _HomePageState extends State<HomePage> {
 
   sendDataToServer() {
     Timer myTimer = Timer.periodic(const Duration(microseconds: 200), (timer) {
-      try {
-        widget.channel.sink.add(cameraImage);
-        print(
-            "^^^^^^^^^^^^^^^^^^^data sent to server^^^^^^^^^^^^^^^^^^^^^^^^^^");
+      setState(() {
+        try {
+          widget.channel.sink.add(ourImageArray);
+          print(
+              "^^^^^^^^^^^^^^^^^^^data sent to server^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
-        print(
-            "&&&&&&&&&&&&&&&&&&&&& this is camera imG ${cameraImage!.format.group.index} &&&&&&&&&&");
-      } catch (e) {
-        print(
-            "*************************************Error from server ${e.toString()}****************************");
-      }
+          print(
+              "&&&&&&&&&&&&&&&&&&&&& this is camera imG ${ourImageArray} &&&&&&&&&&");
+        } catch (e) {
+          print(
+              "*************************************Error from server ${e.toString()}****************************");
+        }
+      });
     });
   }
 
