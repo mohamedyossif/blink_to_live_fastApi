@@ -893,18 +893,17 @@
 import 'package:blink_to_live_test/homePage.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+
 List<CameraDescription>? cameras;
-Future<void>main()async
-{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  cameras=await availableCameras();
+  cameras = await availableCameras();
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage()
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
   }
 }
